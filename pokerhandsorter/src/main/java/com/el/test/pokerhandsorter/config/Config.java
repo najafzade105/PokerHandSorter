@@ -3,6 +3,8 @@ package com.el.test.pokerhandsorter.config;
 import com.el.test.pokerhandsorter.model.PlayCard;
 import com.el.test.pokerhandsorter.model.PokerRankEnum;
 import com.el.test.pokerhandsorter.service.*;
+import com.el.test.pokerhandsorter.util.StandardReaderUtil;
+import com.el.test.pokerhandsorter.util.Validator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +15,16 @@ import java.util.Map;
 @Configuration
 @ComponentScan(basePackages = {"com.el.test.pokerhandsorter"})
 public class Config {
+
+    @Bean
+    public StandardReaderUtil standardReaderUtil(){
+        return new StandardReaderUtil();
+    }
+
+    @Bean
+    public Validator validator(){
+        return new Validator();
+    }
 
     @Bean
     public PokerHandService pokerHandService() {
@@ -27,7 +39,7 @@ public class Config {
         evaluationList.put(PokerRankEnum.FOUR_OF_A_KIND, fourOfAKindEvaluationImpl());
         evaluationList.put(PokerRankEnum.STRAIGHT_FLUSH, straightFlushEvaluationImpl());
         evaluationList.put(PokerRankEnum.ROYAL_FLUSH, royalFlushEvaluationImpl());
-        return new PokerHandService(evaluationList);
+        return new PokerHandService(evaluationList,validator());
     }
 
     @Bean

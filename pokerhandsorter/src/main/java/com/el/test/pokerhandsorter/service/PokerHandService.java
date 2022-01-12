@@ -1,6 +1,7 @@
 package com.el.test.pokerhandsorter.service;
 
 import com.el.test.pokerhandsorter.model.*;
+import com.el.test.pokerhandsorter.util.Validator;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -8,13 +9,18 @@ import java.util.*;
 @Service
 public class PokerHandService {
 
+    private Validator validator;
+
     private Map<PokerRankEnum, PokerHandEvaluation> evaluations;
 
-    public PokerHandService(Map<PokerRankEnum, PokerHandEvaluation> evaluations) {
+    public PokerHandService(Map<PokerRankEnum, PokerHandEvaluation> evaluations, Validator validator) {
         this.evaluations = evaluations;
+        this.validator = validator;
     }
 
     public PokerPlayer generatePokerPlayer(String playerName, List<String> rawHandLines) {
+        validator.validateUnprocessedHand(rawHandLines);
+
         PokerPlayer pokerPlayer = new PokerPlayer(playerName);
         List<PlayHand> playerHands = new ArrayList<>();
         pokerPlayer.setHands(playerHands);
@@ -34,15 +40,11 @@ public class PokerHandService {
         PokerGameResult pokerGameResult = new PokerGameResult();
 
         int numberOfGames = player1.getHands().size();
-        System.out.println("number of games: "+ numberOfGames);
+
         for (int i = 0; i < numberOfGames; i++) {
             PokerGameResult current = comparePokerHands(player1.getHands().get(i).getHand(), player2.getHands().get(i).getHand());
             pokerGameResult.setPlayer1GameWon(pokerGameResult.getPlayer1GameWon() + current.getPlayer1GameWon());
             pokerGameResult.setPlayer2GameWon(pokerGameResult.getPlayer2GameWon() + current.getPlayer2GameWon());
-
-            System.out.println("hand1: " + Arrays.toString(sort(player1.getHands().get(i).getHand())) +
-                            " hand2: " + Arrays.toString(sort(player2.getHands().get(i).getHand())) +
-                    " p1: " + pokerGameResult.getPlayer1GameWon() + " p2: " + pokerGameResult.getPlayer2GameWon());
         }
 
         return pokerGameResult;
@@ -67,7 +69,6 @@ public class PokerHandService {
             PokerRankEnum res2 = evaluations.get(currentRank).evaluate(hand2);
 
             if (res1.equals(currentRank) || res2.equals(currentRank)) {
-                System.out.println("****" + currentRank + "****");
                 foundWinner = true;
                 if (res1.equals(currentRank) && !res2.equals(currentRank)) {
                     result.incrementPlayer1Won();
