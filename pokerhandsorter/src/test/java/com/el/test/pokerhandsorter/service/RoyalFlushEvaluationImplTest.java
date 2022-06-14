@@ -1,7 +1,7 @@
 package com.el.test.pokerhandsorter.service;
 
 import com.el.test.pokerhandsorter.config.Config;
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.Card;
 import com.el.test.pokerhandsorter.model.PokerGameResult;
 import com.el.test.pokerhandsorter.model.PokerRankEnum;
 import org.junit.Assert;
@@ -20,7 +20,7 @@ public class RoyalFlushEvaluationImplTest extends EvaluationTest {
 
     @Test
     public void shouldReturnTrueInRank10_whenCardsAreFlushANDHighRankFromACE() {
-        PlayCard[] straight = preparePlayCardTestData("AC", "KC", "QC", "JC", "TC");
+        Card[] straight = preparePlayCardTestData("AC", "KC", "QC", "JC", "TC");
         PokerRankEnum result = evaluation.evaluate(straight);
         Assert.assertEquals(PokerRankEnum.ROYAL_FLUSH, result);
     }

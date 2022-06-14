@@ -1,6 +1,6 @@
 package com.el.test.pokerhandsorter.service;
 
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.Card;
 import com.el.test.pokerhandsorter.model.PokerGameResult;
 import com.el.test.pokerhandsorter.model.PokerRankEnum;
 import org.springframework.stereotype.Service;
@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class FourOfAKindEvaluationImpl implements OfAKindEvaluation {
     @Override
-    public PokerRankEnum evaluate(PlayCard... playCards) {
+    public PokerRankEnum evaluate(Card... cards) {
 
         PokerRankEnum result = PokerRankEnum.HIGH_CARD;
-        long pairs = OfAKindEvaluation.super.getTheSameKinds(playCards).entrySet().stream()
+        long pairs = OfAKindEvaluation.super.getTheSameKinds(cards).entrySet().stream()
                 .filter(e -> e.getValue() == 4)
                 .count();
         if (pairs > 0) {
@@ -21,7 +21,7 @@ public class FourOfAKindEvaluationImpl implements OfAKindEvaluation {
     }
 
     @Override
-    public PokerGameResult breakTie(PlayCard[] hand1, PlayCard[] hand2) {
+    public PokerGameResult breakTie(Card[] hand1, Card[] hand2) {
         PokerGameResult result = new PokerGameResult();
         Integer rank1 = getRank(hand1, 4).orElseThrow();
         Integer rank2 = getRank(hand2, 4).orElseThrow();

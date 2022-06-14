@@ -1,7 +1,7 @@
 package com.el.test.pokerhandsorter.util;
 
 import com.el.test.pokerhandsorter.config.Config;
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.Card;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +32,7 @@ public class ValidatorTest {
 
     @Test
     public void shouldValidateFalse_whenRawHandDataHasDuplicate() {
-        PlayCard[] duplicate = generateDuplicateHandData();
+        Card[] duplicate = generateDuplicateHandData();
         Assert.assertEquals(false, validator.validateDuplication(duplicate));
     }
 
@@ -44,13 +44,13 @@ public class ValidatorTest {
         return List.of("8D KS 2S QD ", "TD 7D 5S ", "6H ", "TS 5C AH 3D KC KC", " ", "TH JH");
     }
 
-    private PlayCard[] generateDuplicateHandData() {
-        PlayCard[] data = new PlayCard[5];
-        data[0] = new PlayCard("8D");
-        data[1] = new PlayCard("8D");
-        data[2] = new PlayCard("2S");
-        data[3] = new PlayCard("QD");
-        data[4] = new PlayCard("TD");
+    private Card[] generateDuplicateHandData() {
+        Card[] data = new Card[5];
+        data[0] = new Card("8D");
+        data[1] = new Card("8D");
+        data[2] = new Card("2S");
+        data[3] = new Card("QD");
+        data[4] = new Card("TD");
         return data;
     }
 }

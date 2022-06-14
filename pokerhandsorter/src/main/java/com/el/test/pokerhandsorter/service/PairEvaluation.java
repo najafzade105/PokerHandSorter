@@ -1,7 +1,7 @@
 package com.el.test.pokerhandsorter.service;
 
-import com.el.test.pokerhandsorter.model.CardValueEnum;
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.CardRank;
+import com.el.test.pokerhandsorter.model.Card;
 import com.el.test.pokerhandsorter.model.PokerGameResult;
 import com.el.test.pokerhandsorter.model.PokerRankEnum;
 import org.springframework.stereotype.Service;
@@ -12,10 +12,10 @@ import java.util.Arrays;
 public interface PairEvaluation extends OfAKindEvaluation {
 
     @Override
-    default PokerRankEnum evaluate(PlayCard... playCards) {
+    default PokerRankEnum evaluate(Card... cards) {
 
         PokerRankEnum result = PokerRankEnum.HIGH_CARD;
-        long pairs = OfAKindEvaluation.super.getTheSameKinds(playCards).entrySet().stream()
+        long pairs = OfAKindEvaluation.super.getTheSameKinds(cards).entrySet().stream()
                 .filter(e -> e.getValue() == 2)
                 .count();
         if (pairs > 0) {
@@ -25,7 +25,7 @@ public interface PairEvaluation extends OfAKindEvaluation {
     }
 
     @Override
-    default PokerGameResult breakTie(PlayCard[] hand1, PlayCard[] hand2) {
+    default PokerGameResult breakTie(Card[] hand1, Card[] hand2) {
         PokerGameResult result = new PokerGameResult();
         Integer hand1PairRank = getRank(hand1, 2).orElseThrow();
         Integer hand2PairRank = getRank(hand2, 2).orElseThrow();
@@ -42,10 +42,10 @@ public interface PairEvaluation extends OfAKindEvaluation {
         return result;
     }
 
-    private PlayCard[] removeComparedElement(PlayCard[] hand, int remove) {
+    private Card[] removeComparedElement(Card[] hand, int remove) {
         return Arrays.stream(hand)
-                .filter(card -> CardValueEnum.getValue(card.getValue()) != remove)
-                .toArray(PlayCard[]::new);
+                .filter(card -> CardRank.getValueFromDisplay(card.getValue()) != remove)
+                .toArray(Card[]::new);
 
 
     }

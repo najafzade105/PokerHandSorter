@@ -1,7 +1,7 @@
 package com.el.test.pokerhandsorter.service;
 
 import com.el.test.pokerhandsorter.config.Config;
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.Card;
 import com.el.test.pokerhandsorter.model.PokerGameResult;
 import com.el.test.pokerhandsorter.model.PokerRankEnum;
 import org.junit.Assert;
@@ -16,8 +16,8 @@ public class StraightEvaluationImplTest extends EvaluationTest {
 
     private class StraightEvaluationImpl implements StraightEvaluation {
         @Override
-        public PokerRankEnum evaluate(PlayCard... playCards) {
-            return StraightEvaluation.super.evaluate(playCards);
+        public PokerRankEnum evaluate(Card... cards) {
+            return StraightEvaluation.super.evaluate(cards);
         }
     }
 
@@ -25,14 +25,14 @@ public class StraightEvaluationImplTest extends EvaluationTest {
 
     @Test
     public void shouldReturnTrueInRank5_whenHandsHasConsecutiveOrder() {
-        PlayCard[] straight = preparePlayCardTestData("9H", "TC", "JS", "QS", "KD");
+        Card[] straight = preparePlayCardTestData("9H", "TC", "JS", "QS", "KD");
         PokerRankEnum result = evaluation.evaluate(straight);
         Assert.assertEquals(PokerRankEnum.STRAIGHT, result);
     }
 
     @Test
     public void shouldNotReturnStraight_whenHandsIsNotConsecutiveOrder() {
-        PlayCard[] straight = preparePlayCardTestData("5D", "5H", "7S", "8C", "9H");
+        Card[] straight = preparePlayCardTestData("5D", "5H", "7S", "8C", "9H");
         PokerRankEnum result = evaluation.evaluate(straight);
         Assert.assertEquals(PokerRankEnum.HIGH_CARD, result);
     }

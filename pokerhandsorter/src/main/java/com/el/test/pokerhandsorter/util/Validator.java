@@ -1,6 +1,6 @@
 package com.el.test.pokerhandsorter.util;
 
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.Card;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class Validator {
                 CARD_SUITS.contains(card.trim().substring(1));
     }
 
-    public boolean validateHand(PlayCard[] hand) {
+    public boolean validateHand(Card[] hand) {
         return hand != null && hand.length == 5 && validateDuplication(hand);
     }
 
@@ -32,7 +32,7 @@ public class Validator {
                 .orElse(false);
     }
 
-    public boolean validateDuplication(PlayCard[] hand) {
+    public boolean validateDuplication(Card[] hand) {
         Set<String> tempSet = new HashSet<>();
         return Arrays.stream(hand).filter(h -> tempSet.add(h.toString())).count() == 5;
     }

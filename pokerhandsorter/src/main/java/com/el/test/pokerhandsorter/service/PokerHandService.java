@@ -27,7 +27,7 @@ public class PokerHandService {
         rawHandLines.stream()
                 .map(l -> l.trim().split("\\s"))
                 .forEach(array -> {
-                    playerHands.add(new PlayHand(Arrays.stream(array).map(PlayCard::new).toArray(PlayCard[]::new)));
+                    playerHands.add(new PlayHand(Arrays.stream(array).map(Card::new).toArray(Card[]::new)));
                 });
         return pokerPlayer;
     }
@@ -50,13 +50,13 @@ public class PokerHandService {
         return pokerGameResult;
     }
 
-    private PlayCard[] sort(PlayCard[] hand) {
+    private Card[] sort(Card[] hand) {
         return Arrays.stream(hand)
-                .sorted(Comparator.comparingInt(c -> CardValueEnum.getValue(c.getValue())))
-                .toArray(PlayCard[]::new);
+                .sorted(Comparator.comparingInt(c -> CardRank.getValueFromDisplay(c.getValue())))
+                .toArray(Card[]::new);
     }
 
-    public PokerGameResult comparePokerHands(PlayCard[] hand1, PlayCard[] hand2) {
+    public PokerGameResult comparePokerHands(Card[] hand1, Card[] hand2) {
 
         PokerGameResult result = new PokerGameResult();
 

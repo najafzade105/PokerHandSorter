@@ -6,11 +6,11 @@ import java.util.Arrays;
 
 public class PlayHand {
 
-    private PlayCard[] hand;
+    private Card[] hand;
 
     private Validator validator = new Validator();
 
-    public PlayHand(PlayCard[] hand) {
+    public PlayHand(Card[] hand) {
         if (validator.validateHand(hand)) {
             this.hand = hand;
         } else {
@@ -18,7 +18,7 @@ public class PlayHand {
         }
     }
 
-    public PlayCard[] getHand() {
+    public Card[] getHand() {
         return hand;
     }
 

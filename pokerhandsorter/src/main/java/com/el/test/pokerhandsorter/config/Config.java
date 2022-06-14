@@ -1,6 +1,6 @@
 package com.el.test.pokerhandsorter.config;
 
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.Card;
 import com.el.test.pokerhandsorter.model.PokerRankEnum;
 import com.el.test.pokerhandsorter.service.*;
 import com.el.test.pokerhandsorter.util.StandardReaderUtil;
@@ -46,8 +46,8 @@ public class Config {
     public PokerHandEvaluation pairEvaluation() {
         return new PairEvaluation() {
             @Override
-            public PokerRankEnum evaluate(PlayCard... playCards) {
-                return PairEvaluation.super.evaluate(playCards);
+            public PokerRankEnum evaluate(Card... cards) {
+                return PairEvaluation.super.evaluate(cards);
             }
         };
     }
@@ -61,8 +61,8 @@ public class Config {
     public PokerHandEvaluation threeOfAKindEvaluation() {
         return new ThreeOfAKindEvaluation() {
             @Override
-            public PokerRankEnum evaluate(PlayCard... playCards) {
-                return ThreeOfAKindEvaluation.super.evaluate(playCards);
+            public PokerRankEnum evaluate(Card... cards) {
+                return ThreeOfAKindEvaluation.super.evaluate(cards);
             }
         };
     }
@@ -81,8 +81,8 @@ public class Config {
     public PokerHandEvaluation straightEvaluation() {
         return new StraightEvaluation() {
             @Override
-            public PokerRankEnum evaluate(PlayCard... playCards) {
-                return StraightEvaluation.super.evaluate(playCards);
+            public PokerRankEnum evaluate(Card... cards) {
+                return StraightEvaluation.super.evaluate(cards);
             }
         };
     }
@@ -91,8 +91,8 @@ public class Config {
     public PokerHandEvaluation flushEvaluation() {
         return new FlushEvaluation() {
             @Override
-            public PokerRankEnum evaluate(PlayCard... playCards) {
-                return FlushEvaluation.super.evaluate(playCards);
+            public PokerRankEnum evaluate(Card... cards) {
+                return FlushEvaluation.super.evaluate(cards);
             }
         };
     }

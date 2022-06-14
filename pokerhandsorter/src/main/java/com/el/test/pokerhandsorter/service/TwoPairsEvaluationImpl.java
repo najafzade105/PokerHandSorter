@@ -1,7 +1,7 @@
 package com.el.test.pokerhandsorter.service;
 
-import com.el.test.pokerhandsorter.model.CardValueEnum;
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.CardRank;
+import com.el.test.pokerhandsorter.model.Card;
 import com.el.test.pokerhandsorter.model.PokerGameResult;
 import com.el.test.pokerhandsorter.model.PokerRankEnum;
 import org.springframework.stereotype.Service;
@@ -14,10 +14,10 @@ import java.util.stream.Stream;
 @Service
 public class TwoPairsEvaluationImpl implements OfAKindEvaluation {
     @Override
-    public PokerRankEnum evaluate(PlayCard... playCards) {
+    public PokerRankEnum evaluate(Card... cards) {
 
         PokerRankEnum result = PokerRankEnum.HIGH_CARD;
-        long pairs = OfAKindEvaluation.super.getTheSameKinds(playCards).entrySet().stream()
+        long pairs = OfAKindEvaluation.super.getTheSameKinds(cards).entrySet().stream()
                 .filter(e -> e.getValue() == 2)
                 .count();
         if (pairs == 2) {
@@ -27,7 +27,7 @@ public class TwoPairsEvaluationImpl implements OfAKindEvaluation {
     }
 
     @Override
-    public PokerGameResult breakTie(PlayCard[] hand1, PlayCard[] hand2) {
+    public PokerGameResult breakTie(Card[] hand1, Card[] hand2) {
         PokerGameResult result = new PokerGameResult();
         Integer greaterPairOfHand1 = getStreamOfRank(hand1).max(Integer::compareTo).orElseThrow();
         Integer greaterPairOfHand2 = getStreamOfRank(hand2).max(Integer::compareTo).orElseThrow();
@@ -69,18 +69,18 @@ public class TwoPairsEvaluationImpl implements OfAKindEvaluation {
         return result;
     }
 
-    private Stream<Integer> getStreamOfRank(PlayCard[] hand) {
+    private Stream<Integer> getStreamOfRank(Card[] hand) {
         return this.getTheSameKinds(hand).entrySet().stream()
                 .filter(e -> e.getValue() == 2)
                 .map(Map.Entry::getKey)
-                .map(CardValueEnum::getValue);
+                .map(CardRank::getValueFromDisplay);
 
     }
 
-    private Optional<Integer> getTheFifthCard(PlayCard[] hand, int greaterPair, int lowerPair) {
+    private Optional<Integer> getTheFifthCard(Card[] hand, int greaterPair, int lowerPair) {
         return Arrays.stream(hand)
-                .map(PlayCard::getValue)
-                .map(CardValueEnum::getValue)
+                .map(Card::getValue)
+                .map(CardRank::getValueFromDisplay)
                 .filter(v -> !v.equals(greaterPair) && !v.equals(lowerPair))
                 .findFirst();
     }
