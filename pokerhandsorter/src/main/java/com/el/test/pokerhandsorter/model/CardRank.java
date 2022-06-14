@@ -1,24 +1,24 @@
 package com.el.test.pokerhandsorter.model;
 
-public enum CardValueEnum {
-    TWO('2', 2),
-    THREE('3', 3),
-    FOUR('4', 4),
-    FIVE('5', 5),
-    SIX('6', 6),
-    SEVEN('7', 7),
-    EIGHT('8', 8),
-    NINE('9', 9),
-    TEN('T', 10),
-    JACK('J', 11),
-    QUEEN('Q', 12),
-    KING('K', 13),
-    ACE('A', 14);
+public enum CardRank {
+    TWO('2', 1),
+    THREE('3', 2),
+    FOUR('4', 3),
+    FIVE('5', 4),
+    SIX('6', 5),
+    SEVEN('7', 6),
+    EIGHT('8', 7),
+    NINE('9', 8),
+    TEN('T', 9),
+    JACK('J', 10),
+    QUEEN('Q', 11),
+    KING('K', 12),
+    ACE('A', 13);
 
     private char display;
     private int value;
 
-    CardValueEnum(char display, int value) {
+    CardRank(char display, int value) {
         this.display = display;
         this.value = value;
     }
@@ -31,7 +31,7 @@ public enum CardValueEnum {
         return value;
     }
 
-    public static int getValue(char display) {
+    public static int getValueFromDisplay(char display) {
         switch (display) {
             case '2':
                 return TWO.value;

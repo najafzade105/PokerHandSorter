@@ -1,6 +1,6 @@
 package com.el.test.pokerhandsorter.service;
 
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.Card;
 import com.el.test.pokerhandsorter.model.PokerRankEnum;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class HighCardEvaluationImpl implements PokerHandEvaluation {
 
     @Override
-    public PokerRankEnum evaluate(PlayCard... playCards) {
+    public PokerRankEnum evaluate(Card... cards) {
         return PokerRankEnum.HIGH_CARD;
     }
 }

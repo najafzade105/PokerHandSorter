@@ -1,7 +1,7 @@
 package com.el.test.pokerhandsorter.service;
 
 import com.el.test.pokerhandsorter.config.Config;
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.Card;
 import com.el.test.pokerhandsorter.model.PokerGameResult;
 import com.el.test.pokerhandsorter.model.PokerRankEnum;
 import org.junit.Assert;
@@ -77,7 +77,7 @@ public class PokerHandEvaluationTest extends EvaluationTest {
     private class PokerHandEvaluationImpl implements PokerHandEvaluation {
 
         @Override
-        public PokerRankEnum evaluate(PlayCard... playCards) {
+        public PokerRankEnum evaluate(Card... cards) {
             return null;
         }
     }

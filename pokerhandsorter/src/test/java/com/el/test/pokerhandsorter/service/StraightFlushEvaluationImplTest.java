@@ -1,7 +1,7 @@
 package com.el.test.pokerhandsorter.service;
 
 import com.el.test.pokerhandsorter.config.Config;
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.Card;
 import com.el.test.pokerhandsorter.model.PokerGameResult;
 import com.el.test.pokerhandsorter.model.PokerRankEnum;
 import org.junit.Assert;
@@ -19,14 +19,14 @@ public class StraightFlushEvaluationImplTest extends EvaluationTest {
 
     @Test
     public void shouldReturnStraightFlush_whenHandsHasFlushAndStraight() {
-        PlayCard[] straight = preparePlayCardTestData("9H", "TH", "JH", "QH", "KH");
+        Card[] straight = preparePlayCardTestData("9H", "TH", "JH", "QH", "KH");
         PokerRankEnum result = evaluation.evaluate(straight);
         Assert.assertEquals(PokerRankEnum.STRAIGHT_FLUSH, result);
     }
 
     @Test
     public void shouldNotReturnStraightFlush_whenHandsIsNotFlushAndStraight() {
-        PlayCard[] straight = preparePlayCardTestData("5D", "5H", "7S", "8C", "9H");
+        Card[] straight = preparePlayCardTestData("5D", "5H", "7S", "8C", "9H");
         PokerRankEnum result = evaluation.evaluate(straight);
         Assert.assertEquals(PokerRankEnum.HIGH_CARD, result);
     }

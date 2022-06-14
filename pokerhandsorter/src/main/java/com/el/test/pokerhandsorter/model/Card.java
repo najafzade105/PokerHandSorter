@@ -5,14 +5,19 @@ import com.el.test.pokerhandsorter.util.Validator;
 import java.util.Arrays;
 
 
-public class PlayCard {
+public class Card {
 
-    private char value;
-    private char suit;
+    private int value;
+    private int suit;
 
     private Validator validator = new Validator();
 
-    public PlayCard(String card) {
+    public Card(int value, int suit) {
+        this.value = value;
+        this.suit = suit;
+    }
+
+    public Card(String card) {
         if (validator.validateCard(card)) {
             this.value = card.charAt(0);
             this.suit = card.charAt(1);
@@ -22,23 +27,25 @@ public class PlayCard {
 
     }
 
-    public PlayCard[] fromString(String card) {
+    public Card[] fromString(String card) {
         if (validator.validateCard(card)) {
             return Arrays.stream(card.trim().split("\\s"))
-                    .map(c -> new PlayCard(c))
-                    .toArray(PlayCard[]::new);
+                    .map(Card::new)
+                    .toArray(Card[]::new);
         } else {
             throw new RuntimeException("Invalid Card!");
         }
     }
 
-    public char getValue() {
+    public int getValue() {
         return value;
     }
 
-    public char getSuit() {
+    public int getSuit() {
         return suit;
     }
+
+
 
     public String getCard() {
         return value + String.valueOf(suit);

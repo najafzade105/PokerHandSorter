@@ -1,6 +1,6 @@
 package com.el.test.pokerhandsorter.service;
 
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.Card;
 import com.el.test.pokerhandsorter.model.PokerGameResult;
 import com.el.test.pokerhandsorter.model.PokerRankEnum;
 import org.springframework.stereotype.Service;
@@ -8,18 +8,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class FullHouseEvaluationImpl implements PairEvaluation, ThreeOfAKindEvaluation {
     @Override
-    public PokerRankEnum evaluate(PlayCard... playCards) {
+    public PokerRankEnum evaluate(Card... cards) {
 
         PokerRankEnum result = PokerRankEnum.HIGH_CARD;
-        if (PairEvaluation.super.evaluate(playCards).equals(PokerRankEnum.PAIR) &&
-                ThreeOfAKindEvaluation.super.evaluate(playCards).equals(PokerRankEnum.THREE_OF_A_KIND)) {
+        if (PairEvaluation.super.evaluate(cards).equals(PokerRankEnum.PAIR) &&
+                ThreeOfAKindEvaluation.super.evaluate(cards).equals(PokerRankEnum.THREE_OF_A_KIND)) {
             result = PokerRankEnum.FULL_HOUSE;
         }
         return result;
     }
 
     @Override
-    public PokerGameResult breakTie(PlayCard[] hand1, PlayCard[] hand2) {
+    public PokerGameResult breakTie(Card[] hand1, Card[] hand2) {
         PokerGameResult result = new PokerGameResult();
         Integer rank1 = getRank(hand1, 3).orElseThrow();
         Integer rank2 = getRank(hand2, 3).orElseThrow();

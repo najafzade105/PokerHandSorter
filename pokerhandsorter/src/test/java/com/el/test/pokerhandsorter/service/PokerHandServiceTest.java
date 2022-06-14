@@ -1,7 +1,7 @@
 package com.el.test.pokerhandsorter.service;
 
 import com.el.test.pokerhandsorter.config.Config;
-import com.el.test.pokerhandsorter.model.PlayCard;
+import com.el.test.pokerhandsorter.model.Card;
 import com.el.test.pokerhandsorter.model.PlayHand;
 import com.el.test.pokerhandsorter.model.PokerGameResult;
 import com.el.test.pokerhandsorter.model.PokerPlayer;
@@ -129,8 +129,8 @@ public class PokerHandServiceTest extends EvaluationTest {
 
         Assert.assertEquals("TestPlayer", player.getPlayerName());
         List<PlayHand> hands = player.getHands();
-        PlayCard[] card = hands.get(0).getHand();
-        PlayCard[] card1 = hands.get(1).getHand();
+        Card[] card = hands.get(0).getHand();
+        Card[] card1 = hands.get(1).getHand();
         Assert.assertEquals("9C", card[0].getCard());
         Assert.assertEquals("9D", card[1].getCard());
         Assert.assertEquals("8D", card[2].getCard());
@@ -150,7 +150,7 @@ public class PokerHandServiceTest extends EvaluationTest {
         Arrays.stream(lines)
                 .map(l -> l.trim().split("\\s"))
                 .forEach(array -> {
-                    playerHands.add(new PlayHand(Arrays.stream(array).map(PlayCard::new).toArray(PlayCard[]::new)));
+                    playerHands.add(new PlayHand(Arrays.stream(array).map(Card::new).toArray(Card[]::new)));
                 });
         return pokerPlayer;
     }
